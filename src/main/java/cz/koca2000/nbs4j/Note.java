@@ -115,16 +115,17 @@ public final class Note {
      * Sets the volume of this note.
      * @param volume volume between 0 and 100.
      * @return this instance of {@link Note}
-     * @throws IllegalArgumentException if volume is outside of range [0; 100] inclusive.
      * @throws IllegalStateException if the note is frozen and can not be modified
      */
     @NotNull
     public Note setVolume(int volume){
         throwIfFrozen();
 
-        if (volume < 0 || volume > 100)
-            throw new IllegalArgumentException("Volume must be in range [0; 100] inclusive.");
-
+        if (volume < 0) {
+            volume = 0;
+        } else if (volume > 100) {
+            volume = 100;
+        }
         this.volume = (byte) volume;
         return this;
     }

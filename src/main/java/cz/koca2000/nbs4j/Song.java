@@ -161,7 +161,7 @@ public class Song {
             throw new IllegalArgumentException("Tick can not be negative.");
 
         if (layerIndex >= layers.size())
-            throw new IndexOutOfBoundsException("Layer index is out of range.");
+            setLayersCount(layerIndex + 1);
 
         Layer layer = layers.get(layerIndex);
         layer.setNoteInternal(tick, note, true);

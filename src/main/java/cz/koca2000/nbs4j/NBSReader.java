@@ -2,10 +2,7 @@ package cz.koca2000.nbs4j;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedInputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 class NBSReader {
 
@@ -26,9 +23,14 @@ class NBSReader {
 
             readNotes(song, header, dataInputStream);
 
+            if (dataInputStream.available() < 2) {
+                return song;
+            }
             readLayers(song, header, dataInputStream);
 
             readCustomInstruments(song, dataInputStream);
+        } catch (EOFException e) {
+            return song;
         } catch (Exception e) {
             throw new SongCorruptedException(e);
         }

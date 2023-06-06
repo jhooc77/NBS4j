@@ -64,7 +64,8 @@ public class CustomInstrument {
     public CustomInstrument setFileName(@NotNull String fileName){
         throwIfFrozen();
 
-        this.fileName = fileName;
+        String[] splits;
+        this.fileName = (splits = fileName.split("/"))[splits.length-1].replaceAll("\\.ogg$", "");
         return this;
     }
 
